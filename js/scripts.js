@@ -4,12 +4,6 @@ function Player(name, score, totalScore) {
   this.totalScore = totalScore;
 }
 
-Player.prototype.totalScore = function () {
-  totalScore = 0;
-  return this.score + this.totalScore;
-}
-
-
 
 var dice = {
   sides: 6,
@@ -44,7 +38,7 @@ $(document).ready(function() {
     $("#player1Turn").show();
     $("#player1Dice").click(function() {
       var playerRoll = dice.roll();
-      $("#playerOneRoll").text(playerRoll);
+      $("#playerOneRoll").text(totalP1);
       if(playerRoll !==1) {
         player1.score += playerRoll;
         totalP1.push(playerRoll);
@@ -64,7 +58,7 @@ $(document).ready(function() {
     });
     $("#player2Dice").click(function() {
       var playerRoll = dice.roll();
-      $("#playerTwoRoll").text(playerRoll);
+      $("#playerTwoRoll").text(totalP2);
       if(playerRoll !==1) {
         player2.score += playerRoll;
         totalP2.push(playerRoll);
@@ -92,6 +86,14 @@ $(document).ready(function() {
         totalP2 = [0];
         $("#player2Turn").toggle();
         $("#player1Turn").toggle();
+
+        if (player1.totalScore >= 100) {
+          alert("Player 1 Wins!")
+        }
+        else if (player2.totalScore >= 100) {
+          alert("Player 2 Wins!")
+        }
+
       });
     });
   });
