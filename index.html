@@ -13,19 +13,45 @@
       <h1>Pig Dice</h1>
       <form id="nameForm">
         <!--This button will input player1/player2 names and hide the name input form  -->
+        <label>Player 1: Enter Name</label>
+        <input type="text" id="player1NameInput">
+        <label>Player 2: Enter Name</label>
+        <input type="text" id="player2NameInput">
         <button type="submit">Input Names</button>
       </form>
 
       <div class="row">
-        <!---Scores displayed on this row -->
-
-
-
-
-
-
-
-
+        <div class="col-md-6">
+          <div class="jumbotron">
+            <h1><span class="player1Name"></span> Score:</h1>
+            <h3><span class="player1Score"></span></h3>
+            <!---Scores displayed on this row -->
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="jumbotron">
+            <h1><span class="player2Name"></span> Score:</h1>
+            <h3><span class="player2Score"></span></h3>
+            <!---Scores displayed on this row -->
+          </div>
+        </div>
+      </div>
+      <div id="player1Turn">
+        <!--display for the dice roll will be here  -->
+        <div class="rollDisplay">
+          <h1><span id="playerOneRoll"></span></h1>
+        </div>
+        <button type="click" id="player1Dice">Player One Roll</button>
+        <button type="click">End Current Turn</button>
+      </div>
+      <!-- <div id="player2Turn">
+          display for the dice roll will be here
+        <div class="rollDisplay">
+          <h1><span id="playerTwoRoll"></span></h1>
+        </div>
+        <button type="click" id="player2Dice">Player Two Roll</button>
+        <button type="click">End Current Turn</button>
+      </div> -->
     </div>
   </body>
 </html>
