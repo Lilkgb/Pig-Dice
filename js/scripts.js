@@ -36,9 +36,10 @@ $(document).ready(function() {
     // player1.diceRoll = 55
     $("#nameForm").hide();
     $("#player1Turn").show();
+    $(".scores").show("slow");
     $("#player1Dice").click(function() {
       var playerRoll = dice.roll();
-      $("#playerOneRoll").text(totalP1);
+      $("#playerOneRoll").text(playerRoll);
       if(playerRoll !==1) {
         player1.score += playerRoll;
         totalP1.push(playerRoll);
@@ -50,15 +51,14 @@ $(document).ready(function() {
         totalP2 = [0];
         $("#player2Turn").show();
         $("#player1Turn").hide();
+        $("#playerTwoRoll").text(" ");
       }
-      console.log(totalP1)
-
       $(".player1Score").text(player1.totalScore);
-      console.log(player1)
     });
+
     $("#player2Dice").click(function() {
       var playerRoll = dice.roll();
-      $("#playerTwoRoll").text(totalP2);
+      $("#playerTwoRoll").text(playerRoll);
       if(playerRoll !==1) {
         player2.score += playerRoll;
         totalP2.push(playerRoll);
@@ -71,10 +71,10 @@ $(document).ready(function() {
         totalP2 = [0];
         $("#player2Turn").hide();
         $("#player1Turn").show();
+        $("#playerOneRoll").text(" ");
       }
 
       $(".player2Score").text(player2.totalScore);
-      console.log(player2);
       })
 
       $(".turnChange").click(function() {
@@ -82,6 +82,11 @@ $(document).ready(function() {
         $(".player1Score").text(player1.totalScore);
         player2.totalScore += totalP2.reduce(getSum);
         $(".player2Score").text(player2.totalScore);
+        $("#playerOneRoll").text(" ");
+        $("#playerTwoRoll").text(" ");
+
+
+
         totalP1 = [0];
         totalP2 = [0];
         $("#player2Turn").toggle();
@@ -93,7 +98,6 @@ $(document).ready(function() {
         else if (player2.totalScore >= 100) {
           alert("Player 2 Wins!")
         }
-
       });
     });
   });

@@ -5,3 +5,12 @@
 #player1Turn {
   display: none;
 }
+
+.rollDisplay {
+
+height: 50px;
+}
+
+.scores {
+  display: none;
+}
