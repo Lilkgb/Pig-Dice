@@ -1,8 +1,15 @@
-function NewPlayer(name, score, diceRoll) {
+function Player(name, score, totalScore) {
   this.name = name;
   this.score = score;
-  this.diceRoll = diceRoll;
+  this.totalScore = totalScore;
 }
+
+Player.prototype.totalScore = function () {
+  totalScore = 0;
+  return this.score + this.totalScore;
+}
+
+
 
 var dice = {
   sides: 6,
@@ -12,50 +19,79 @@ var dice = {
   }
 }
 
-NewPlayer.prototype.roll = function (){
-  return dice;
+function getSum(total, num) {
+  return total + num;
 }
 
-var player1 = new NewPlayer();
-var player2 = new NewPlayer();
+
 
 $(document).ready(function() {
+  var totalP1 = [0];
+  var totalP2 = [0];
   $("#nameForm").submit(function(event) {
-    event.preventDefault();
     var player1Name = $("input#player1NameInput").val();
     var player2Name = $("input#player2NameInput").val();
-    var player1 = new NewPlayer(player1Name, 0, dice.roll());
-    var player2 = new NewPlayer(player2Name, 0, dice.roll());
+    var player1 = new Player(player1Name, 0, 0);
+    var player2 = new Player(player2Name, 0, 0);
+    console.log(player1.totalScore);
     $(".player1Name").text(player1.name);
     $(".player1Score").text(player1.score);
     $(".player2Name").text(player2.name);
     $(".player2Score").text(player2.score);
-    console.log(player1);
-  })
-  $("#player1Dice").click(function(event) {
-    var diceRoll = dice.roll();
+    event.preventDefault();
+    // player1.diceRoll = 55
+    $("#nameForm").hide();
+    $("#player1Turn").show();
+    $("#player1Dice").click(function() {
+      var playerRoll = dice.roll();
+      $("#playerOneRoll").text(playerRoll);
+      if(playerRoll !==1) {
+        player1.score += playerRoll;
+        totalP1.push(playerRoll);
+      }
+      else {
+        player1.score *= 0;
+        alert("YOUR TURN IS OVER, YOU ROLLED A 1");
+        totalP1 = [0];
+        totalP2 = [0];
+        $("#player2Turn").show();
+        $("#player1Turn").hide();
+      }
+      console.log(totalP1)
 
-    $("#playerOneRoll").text(diceRoll);
-    if (diceRoll !== 1) {
-      console.log("ok cool");
-    }
-    else {
-      console.log("SCREW YOU!")
-    }
-    // else if (diceRoll === 2) {
-    //   console.log(2)
-    // }
-    // else if (diceRoll === 2) {
-    //   console.log(2)
-    // }
-    // else if (diceRoll === 2) {
-    //   console.log(2)
-    // }
-    // else if (diceRoll === 2) {
-    //   console.log(2)
-    // }
-    // else if (diceRoll === 2) {
-    //   console.log(2)
-    // }
+      $(".player1Score").text(player1.totalScore);
+      console.log(player1)
+    });
+    $("#player2Dice").click(function() {
+      var playerRoll = dice.roll();
+      $("#playerTwoRoll").text(playerRoll);
+      if(playerRoll !==1) {
+        player2.score += playerRoll;
+        totalP2.push(playerRoll);
+        console.log(totalP2)
+      }
+      else {
+        player2.score *= 0;
+        alert("YOUR TURN IS OVER, YOU ROLLED A 1");
+        totalP1 = [0];
+        totalP2 = [0];
+        $("#player2Turn").hide();
+        $("#player1Turn").show();
+      }
+
+      $(".player2Score").text(player2.totalScore);
+      console.log(player2);
+      })
+
+      $(".turnChange").click(function() {
+        player1.totalScore += totalP1.reduce(getSum);
+        $(".player1Score").text(player1.totalScore);
+        player2.totalScore += totalP2.reduce(getSum);
+        $(".player2Score").text(player2.totalScore);
+        totalP1 = [0];
+        totalP2 = [0];
+        $("#player2Turn").toggle();
+        $("#player1Turn").toggle();
+      });
+    });
   });
-});
