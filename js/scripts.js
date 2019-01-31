@@ -3,8 +3,6 @@ function Player(name, score, totalScore) {
   this.score = score;
   this.totalScore = totalScore;
 }
-
-
 var dice = {
   sides: 6,
   roll: function () {
@@ -12,12 +10,9 @@ var dice = {
     return randomNumber;
   }
 }
-
 function getSum(total, num) {
   return total + num;
 }
-
-
 
 $(document).ready(function() {
   var totalP1 = [0];
@@ -27,13 +22,11 @@ $(document).ready(function() {
     var player2Name = $("input#player2NameInput").val();
     var player1 = new Player(player1Name, 0, 0);
     var player2 = new Player(player2Name, 0, 0);
-    console.log(player1.totalScore);
     $(".player1Name").text(player1.name);
     $(".player1Score").text(player1.score);
     $(".player2Name").text(player2.name);
     $(".player2Score").text(player2.score);
     event.preventDefault();
-    // player1.diceRoll = 55
     $("#nameForm").hide();
     $("#player1Turn").show();
     $(".scores").show("slow");
@@ -46,6 +39,7 @@ $(document).ready(function() {
       }
       else {
         player1.score *= 0;
+        totalP1.push(playerRoll);
         alert("YOUR TURN IS OVER, YOU ROLLED A 1");
         totalP1 = [0];
         totalP2 = [0];
@@ -62,10 +56,10 @@ $(document).ready(function() {
       if(playerRoll !==1) {
         player2.score += playerRoll;
         totalP2.push(playerRoll);
-        console.log(totalP2)
       }
       else {
         player2.score *= 0;
+        totalP2.push(playerRoll);
         alert("YOUR TURN IS OVER, YOU ROLLED A 1");
         totalP1 = [0];
         totalP2 = [0];
@@ -73,10 +67,8 @@ $(document).ready(function() {
         $("#player1Turn").show();
         $("#playerOneRoll").text(" ");
       }
-
       $(".player2Score").text(player2.totalScore);
       })
-
       $(".turnChange").click(function() {
         player1.totalScore += totalP1.reduce(getSum);
         $(".player1Score").text(player1.totalScore);
@@ -84,9 +76,6 @@ $(document).ready(function() {
         $(".player2Score").text(player2.totalScore);
         $("#playerOneRoll").text(" ");
         $("#playerTwoRoll").text(" ");
-
-
-
         totalP1 = [0];
         totalP2 = [0];
         $("#player2Turn").toggle();
